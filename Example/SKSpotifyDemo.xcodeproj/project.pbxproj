@@ -13,6 +13,10 @@
 		8262C08E1CC7483500EB596C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8262C08C1CC7483500EB596C /* Main.storyboard */; };
 		8262C0901CC7483500EB596C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8262C08F1CC7483500EB596C /* Assets.xcassets */; };
 		8262C0931CC7483500EB596C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8262C0911CC7483500EB596C /* LaunchScreen.storyboard */; };
+		82C0D1A51CC74C870025C530 /* SKSpotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82C0D1A41CC74C870025C530 /* SKSpotify.framework */; };
+		82C0D1A71CC74D220025C530 /* SKUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82C0D1A61CC74D220025C530 /* SKUtils.framework */; };
+		82C0D1A91CC74D7F0025C530 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82C0D1A81CC74D7F0025C530 /* AVFoundation.framework */; };
+		82C0D1AC1CC74F5C0025C530 /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82C0D1AB1CC74F5C0025C530 /* Spotify.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +30,10 @@
 		8262C08F1CC7483500EB596C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8262C0921CC7483500EB596C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8262C0941CC7483500EB596C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		82C0D1A41CC74C870025C530 /* SKSpotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SKSpotify.framework; path = "../../../../../../../Library/Developer/Xcode/DerivedData/SKSpotifyDemo-denjtmihalpzfwaegoaxbmjfzvxv/Build/Products/Debug-iphonesimulator/SKSpotify.framework"; sourceTree = "<group>"; };
+		82C0D1A61CC74D220025C530 /* SKUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SKUtils.framework; path = ../../../Carthage/Build/iOS/SKUtils.framework; sourceTree = "<group>"; };
+		82C0D1A81CC74D7F0025C530 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		82C0D1AB1CC74F5C0025C530 /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Spotify.framework; path = ../../../SKSpotify/Framework/Spotify.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +41,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82C0D1AC1CC74F5C0025C530 /* Spotify.framework in Frameworks */,
+				82C0D1A91CC74D7F0025C530 /* AVFoundation.framework in Frameworks */,
+				82C0D1A71CC74D220025C530 /* SKUtils.framework in Frameworks */,
+				82C0D1A51CC74C870025C530 /* SKSpotify.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +70,7 @@
 		8262C0821CC7483500EB596C /* SKSpotifyDemo */ = {
 			isa = PBXGroup;
 			children = (
+				82C0D1A31CC74C7E0025C530 /* Framework */,
 				8262C0861CC7483500EB596C /* AppDelegate.h */,
 				8262C0871CC7483500EB596C /* AppDelegate.m */,
 				8262C0891CC7483500EB596C /* ViewController.h */,
@@ -79,6 +92,17 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		82C0D1A31CC74C7E0025C530 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				82C0D1A81CC74D7F0025C530 /* AVFoundation.framework */,
+				82C0D1AB1CC74F5C0025C530 /* Spotify.framework */,
+				82C0D1A41CC74C870025C530 /* SKSpotify.framework */,
+				82C0D1A61CC74D220025C530 /* SKUtils.framework */,
+			);
+			path = Framework;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -89,6 +113,7 @@
 				8262C07C1CC7483500EB596C /* Sources */,
 				8262C07D1CC7483500EB596C /* Frameworks */,
 				8262C07E1CC7483500EB596C /* Resources */,
+				82C0D1AA1CC74E2F0025C530 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -143,6 +168,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		82C0D1AA1CC74E2F0025C530 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../Carthage/Build/iOS/SKUtils.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8262C07C1CC7483500EB596C /* Sources */ = {
@@ -265,6 +307,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../Carthage/Build/iOS",
+					"$(PROJECT_DIR)/../SKSpotify/Framework",
+				);
 				INFOPLIST_FILE = SKSpotifyDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.skchen.SKSpotifyDemo;
@@ -276,6 +322,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../Carthage/Build/iOS",
+					"$(PROJECT_DIR)/../SKSpotify/Framework",
+				);
 				INFOPLIST_FILE = SKSpotifyDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.skchen.SKSpotifyDemo;

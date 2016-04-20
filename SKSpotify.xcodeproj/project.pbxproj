@@ -10,6 +10,11 @@
 		8262C03E1CC7433C00EB596C /* SKSpotify.h in Headers */ = {isa = PBXBuildFile; fileRef = 8262C03D1CC7433C00EB596C /* SKSpotify.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8262C0451CC7433C00EB596C /* SKSpotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262C03A1CC7433C00EB596C /* SKSpotify.framework */; };
 		8262C04A1CC7433C00EB596C /* SKSpotifyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8262C0491CC7433C00EB596C /* SKSpotifyTests.m */; };
+		8262C0A51CC74A1A00EB596C /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262C0A41CC74A1A00EB596C /* Spotify.framework */; };
+		8262C0A81CC74B1100EB596C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262C0A71CC74B1100EB596C /* AVFoundation.framework */; };
+		8262C0AB1CC74B6000EB596C /* SKSpotifyPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 8262C0A91CC74B6000EB596C /* SKSpotifyPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8262C0AC1CC74B6000EB596C /* SKSpotifyPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8262C0AA1CC74B6000EB596C /* SKSpotifyPlayer.m */; };
+		82C0D1A21CC74BAF0025C530 /* SKUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82C0D1A11CC74BAF0025C530 /* SKUtils.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +34,11 @@
 		8262C0441CC7433C00EB596C /* SKSpotifyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SKSpotifyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8262C0491CC7433C00EB596C /* SKSpotifyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKSpotifyTests.m; sourceTree = "<group>"; };
 		8262C04B1CC7433C00EB596C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8262C0A41CC74A1A00EB596C /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Spotify.framework; sourceTree = "<group>"; };
+		8262C0A71CC74B1100EB596C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		8262C0A91CC74B6000EB596C /* SKSpotifyPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKSpotifyPlayer.h; sourceTree = "<group>"; };
+		8262C0AA1CC74B6000EB596C /* SKSpotifyPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKSpotifyPlayer.m; sourceTree = "<group>"; };
+		82C0D1A11CC74BAF0025C530 /* SKUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SKUtils.framework; path = ../../Carthage/Build/iOS/SKUtils.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +46,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82C0D1A21CC74BAF0025C530 /* SKUtils.framework in Frameworks */,
+				8262C0A81CC74B1100EB596C /* AVFoundation.framework in Frameworks */,
+				8262C0A51CC74A1A00EB596C /* Spotify.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +84,8 @@
 		8262C03C1CC7433C00EB596C /* SKSpotify */ = {
 			isa = PBXGroup;
 			children = (
+				8262C0A61CC74A2F00EB596C /* Player */,
+				8262C0A31CC74A1A00EB596C /* Framework */,
 				8262C03D1CC7433C00EB596C /* SKSpotify.h */,
 				8262C03F1CC7433C00EB596C /* Info.plist */,
 			);
@@ -86,6 +101,25 @@
 			path = SKSpotifyTests;
 			sourceTree = "<group>";
 		};
+		8262C0A31CC74A1A00EB596C /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				8262C0A71CC74B1100EB596C /* AVFoundation.framework */,
+				82C0D1A11CC74BAF0025C530 /* SKUtils.framework */,
+				8262C0A41CC74A1A00EB596C /* Spotify.framework */,
+			);
+			path = Framework;
+			sourceTree = "<group>";
+		};
+		8262C0A61CC74A2F00EB596C /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				8262C0A91CC74B6000EB596C /* SKSpotifyPlayer.h */,
+				8262C0AA1CC74B6000EB596C /* SKSpotifyPlayer.m */,
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -93,6 +127,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8262C0AB1CC74B6000EB596C /* SKSpotifyPlayer.h in Headers */,
 				8262C03E1CC7433C00EB596C /* SKSpotify.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -193,6 +228,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8262C0AC1CC74B6000EB596C /* SKSpotifyPlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,9 +348,15 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SKSpotify/Framework",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = SKSpotify/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.skchen.SKSpotify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -328,9 +370,15 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SKSpotify/Framework",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = SKSpotify/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.skchen.SKSpotify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -376,6 +424,7 @@
 				8262C0501CC7433C00EB596C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8262C0511CC7433C00EB596C /* Build configuration list for PBXNativeTarget "SKSpotifyTests" */ = {
 			isa = XCConfigurationList;
@@ -384,6 +433,7 @@
 				8262C0531CC7433C00EB596C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
