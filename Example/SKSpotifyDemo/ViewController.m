@@ -7,6 +7,9 @@
 //
 
 #import "ViewController.h"
+#import <Spotify/Spotify.h>
+
+#import "AppDelegate.h"
 
 @import SKSpotify;
 

@@ -16,7 +16,7 @@
 		82C0D1A51CC74C870025C530 /* SKSpotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82C0D1A41CC74C870025C530 /* SKSpotify.framework */; };
 		82C0D1A71CC74D220025C530 /* SKUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82C0D1A61CC74D220025C530 /* SKUtils.framework */; };
 		82C0D1A91CC74D7F0025C530 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82C0D1A81CC74D7F0025C530 /* AVFoundation.framework */; };
-		82C0D1AC1CC74F5C0025C530 /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82C0D1AB1CC74F5C0025C530 /* Spotify.framework */; };
+		82C0D1AE1CC79C280025C530 /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82C0D1AD1CC79C280025C530 /* Spotify.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +33,7 @@
 		82C0D1A41CC74C870025C530 /* SKSpotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SKSpotify.framework; path = "../../../../../../../Library/Developer/Xcode/DerivedData/SKSpotifyDemo-denjtmihalpzfwaegoaxbmjfzvxv/Build/Products/Debug-iphonesimulator/SKSpotify.framework"; sourceTree = "<group>"; };
 		82C0D1A61CC74D220025C530 /* SKUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SKUtils.framework; path = ../../../Carthage/Build/iOS/SKUtils.framework; sourceTree = "<group>"; };
 		82C0D1A81CC74D7F0025C530 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		82C0D1AB1CC74F5C0025C530 /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Spotify.framework; path = ../../../SKSpotify/Framework/Spotify.framework; sourceTree = "<group>"; };
+		82C0D1AD1CC79C280025C530 /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Spotify.framework; path = ../../../SKSpotify/Framework/Spotify.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82C0D1AC1CC74F5C0025C530 /* Spotify.framework in Frameworks */,
+				82C0D1AE1CC79C280025C530 /* Spotify.framework in Frameworks */,
 				82C0D1A91CC74D7F0025C530 /* AVFoundation.framework in Frameworks */,
 				82C0D1A71CC74D220025C530 /* SKUtils.framework in Frameworks */,
 				82C0D1A51CC74C870025C530 /* SKSpotify.framework in Frameworks */,
@@ -95,8 +95,8 @@
 		82C0D1A31CC74C7E0025C530 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
+				82C0D1AD1CC79C280025C530 /* Spotify.framework */,
 				82C0D1A81CC74D7F0025C530 /* AVFoundation.framework */,
-				82C0D1AB1CC74F5C0025C530 /* Spotify.framework */,
 				82C0D1A41CC74C870025C530 /* SKSpotify.framework */,
 				82C0D1A61CC74D220025C530 /* SKUtils.framework */,
 			);
@@ -313,6 +313,7 @@
 				);
 				INFOPLIST_FILE = SKSpotifyDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.skchen.SKSpotifyDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -328,6 +329,7 @@
 				);
 				INFOPLIST_FILE = SKSpotifyDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.skchen.SKSpotifyDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

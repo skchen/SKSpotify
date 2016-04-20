@@ -8,7 +8,12 @@
 
 #import "AppDelegate.h"
 
+static NSString * const kSpotifyClientId = @"4d4573064a0b4f64ad0629adc987184a";
+static NSString * const kSpotifyClientCallback = @"skspotify://callback";
+
 @interface AppDelegate ()
+
+@property (nonatomic, strong) SPTAudioStreamingController *player;
 
 @end
 
@@ -16,7 +21,19 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    [[SPTAuth defaultInstance] setClientID:kSpotifyClientId];
+    [[SPTAuth defaultInstance] setRedirectURL:[NSURL URLWithString:kSpotifyClientCallback]];
+    [[SPTAuth defaultInstance] setRequestedScopes:@[SPTAuthStreamingScope]];
+    
+    // Construct a login URL and open it
+    NSURL *loginURL = [[SPTAuth defaultInstance] loginURL];
+    
+    // Opening a URL in Safari close to application launch may trigger
+    // an iOS bug, so we wait a bit before doing so.
+    [application performSelector:@selector(openURL:)
+                      withObject:loginURL afterDelay:0.1];
+    
     return YES;
 }
 
@@ -40,6 +57,31 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+-(BOOL)application:(UIApplication *)application
+           openURL:(NSURL *)url
+ sourceApplication:(NSString *)sourceApplication
+        annotation:(id)annotation {
+    
+    // Ask SPTAuth if the URL given is a Spotify authentication callback
+    if ([[SPTAuth defaultInstance] canHandleURL:url]) {
+        [[SPTAuth defaultInstance] handleAuthCallbackWithTriggeredAuthURL:url callback:^(NSError *error, SPTSession *session) {
+            
+            if (error != nil) {
+                NSLog(@"*** Auth error: %@", error);
+                return;
+            }
+            
+            // Call the -playUsingSession: method to play a track
+            //[self playUsingSession:session];
+            
+            NSLog(@"Auth Success");
+        }];
+        return YES;
+    }
+    
+    return NO;
 }
 
 @end
