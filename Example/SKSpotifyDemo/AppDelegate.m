@@ -10,6 +10,7 @@
 
 static NSString * const kSpotifyClientId = @"4d4573064a0b4f64ad0629adc987184a";
 static NSString * const kSpotifyClientCallback = @"skspotify://callback";
+static NSString * const kSpotifySessionUserDefaultKey = @"SessionUserDefaultsKey";
 
 @interface AppDelegate ()
 
@@ -25,6 +26,7 @@ static NSString * const kSpotifyClientCallback = @"skspotify://callback";
     [[SPTAuth defaultInstance] setClientID:kSpotifyClientId];
     [[SPTAuth defaultInstance] setRedirectURL:[NSURL URLWithString:kSpotifyClientCallback]];
     [[SPTAuth defaultInstance] setRequestedScopes:@[SPTAuthStreamingScope]];
+    [[SPTAuth defaultInstance] setSessionUserDefaultsKey:kSpotifySessionUserDefaultKey];
     
     // Construct a login URL and open it
     NSURL *loginURL = [[SPTAuth defaultInstance] loginURL];
@@ -73,10 +75,7 @@ static NSString * const kSpotifyClientCallback = @"skspotify://callback";
                 return;
             }
             
-            // Call the -playUsingSession: method to play a track
-            //[self playUsingSession:session];
-            
-            NSLog(@"Auth Success");
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"sessionUpdated" object:self];
         }];
         return YES;
     }

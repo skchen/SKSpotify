@@ -8,6 +8,10 @@
 
 @import SKUtils;
 
-@interface SKSpotifyPlayer : SKPlayer
+@class SPTAuth;
+
+@interface SKSpotifyPlayer : SKPlayer<NSString *>
+
+- (nonnull instancetype)initWithAuth:(nonnull SPTAuth *)auth;
 
 @end

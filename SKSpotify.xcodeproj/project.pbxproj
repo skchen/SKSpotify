@@ -10,11 +10,9 @@
 		8262C03E1CC7433C00EB596C /* SKSpotify.h in Headers */ = {isa = PBXBuildFile; fileRef = 8262C03D1CC7433C00EB596C /* SKSpotify.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8262C0451CC7433C00EB596C /* SKSpotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262C03A1CC7433C00EB596C /* SKSpotify.framework */; };
 		8262C04A1CC7433C00EB596C /* SKSpotifyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8262C0491CC7433C00EB596C /* SKSpotifyTests.m */; };
-		8262C0A51CC74A1A00EB596C /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262C0A41CC74A1A00EB596C /* Spotify.framework */; };
-		8262C0A81CC74B1100EB596C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262C0A71CC74B1100EB596C /* AVFoundation.framework */; };
 		8262C0AB1CC74B6000EB596C /* SKSpotifyPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 8262C0A91CC74B6000EB596C /* SKSpotifyPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8262C0AC1CC74B6000EB596C /* SKSpotifyPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8262C0AA1CC74B6000EB596C /* SKSpotifyPlayer.m */; };
-		82C0D1A21CC74BAF0025C530 /* SKUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82C0D1A11CC74BAF0025C530 /* SKUtils.framework */; };
+		82C0D1B91CC889800025C530 /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262C0A41CC74A1A00EB596C /* Spotify.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,9 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82C0D1A21CC74BAF0025C530 /* SKUtils.framework in Frameworks */,
-				8262C0A81CC74B1100EB596C /* AVFoundation.framework in Frameworks */,
-				8262C0A51CC74A1A00EB596C /* Spotify.framework in Frameworks */,
+				82C0D1B91CC889800025C530 /* Spotify.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
