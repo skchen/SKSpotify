@@ -40,86 +40,47 @@
 }
 
 - (nullable NSError *)_prepare {
-    _semaphore = dispatch_semaphore_create(0);
+    if([self executeBlockingWise:^(SPTErrorableOperationCallback callback) {
+        [_innerPlayer loginWithSession:_auth.session callback:callback];
+    }]) {
+        return _error;
+    }
     
     NSURL *trackURI = [NSURL URLWithString:_source];
     
-    [_innerPlayer loginWithSession:_auth.session callback:^(NSError *error) {
-        if(error) {
-            _error = error;
-            dispatch_semaphore_signal(_semaphore);
-        } else {
-            [_innerPlayer playURIs:@[ trackURI ] fromIndex:0 callback:^(NSError *error) {
-                if(error) {
-                    _error = error;
-                    dispatch_semaphore_signal(_semaphore);
-                } else {
-                    [_innerPlayer setIsPlaying:NO callback:^(NSError *error) {
-                        _error = error;
-                        dispatch_semaphore_signal(_semaphore);
-                    }];
-                }
-            }];
-        }
-    }];
+    if([self executeBlockingWise:^(SPTErrorableOperationCallback callback) {
+        [_innerPlayer playURIs:@[ trackURI ] fromIndex:0 callback:callback];
+    }]) {
+        return _error;
+    }
     
-    dispatch_semaphore_wait(_semaphore, DISPATCH_TIME_FOREVER);
-    
-    return _error;
+    return [self _pause];
 }
 
 - (nullable NSError *)_start {
-    _semaphore = dispatch_semaphore_create(0);
-    
-    [_innerPlayer setIsPlaying:YES callback:^(NSError *error) {
-        _error = error;
-        dispatch_semaphore_signal(_semaphore);
+    return [self executeBlockingWise:^(SPTErrorableOperationCallback callback) {
+        [_innerPlayer setIsPlaying:YES callback:callback];
     }];
-    
-    dispatch_semaphore_wait(_semaphore, DISPATCH_TIME_FOREVER);
-    
-    return _error;
 }
 
 - (nullable NSError *)_pause {
-    _semaphore = dispatch_semaphore_create(0);
-    
-    [_innerPlayer setIsPlaying:NO callback:^(NSError *error) {
-        _error = error;
-        dispatch_semaphore_signal(_semaphore);
+    return [self executeBlockingWise:^(SPTErrorableOperationCallback callback) {
+        [_innerPlayer setIsPlaying:NO callback:callback];
     }];
-    
-    dispatch_semaphore_wait(_semaphore, DISPATCH_TIME_FOREVER);
-    
-    return _error;
 }
 
 - (nullable NSError *)_stop {
-    _semaphore = dispatch_semaphore_create(0);
-    
-    [_innerPlayer stop:^(NSError *error) {
-        _error = error;
-        dispatch_semaphore_signal(_semaphore);
+    return [self executeBlockingWise:^(SPTErrorableOperationCallback callback) {
+        [_innerPlayer stop:callback];
     }];
-    
-    dispatch_semaphore_wait(_semaphore, DISPATCH_TIME_FOREVER);
-    
-    return _error;
 }
 
 - (nullable NSError *)_seekTo:(int)msec {
     float offset = (float)msec/1000;
     
-    _semaphore = dispatch_semaphore_create(0);
-    
-    [_innerPlayer seekToOffset:offset callback:^(NSError *error) {
-        _error = error;
-        dispatch_semaphore_signal(_semaphore);
+    return [self executeBlockingWise:^(SPTErrorableOperationCallback callback) {
+        [_innerPlayer seekToOffset:offset callback:callback];
     }];
-    
-    dispatch_semaphore_wait(_semaphore, DISPATCH_TIME_FOREVER);
-    
-    return _error;
 }
 
 - (int)getCurrentPosition {
@@ -128,6 +89,21 @@
 
 - (int)getDuration {
     return round(_innerPlayer.currentTrackDuration*1000);
+}
+
+- (NSError *)executeBlockingWise:(void (^_Nonnull)(SPTErrorableOperationCallback))task {
+    _semaphore = dispatch_semaphore_create(0);
+    
+    SPTErrorableOperationCallback callback = ^void(NSError *error) {
+        _error = error;
+        dispatch_semaphore_signal(_semaphore);
+    };
+    
+    task(callback);
+    
+    dispatch_semaphore_wait(_semaphore, DISPATCH_TIME_FOREVER);
+    
+    return _error;
 }
 
 @end
