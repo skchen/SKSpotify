@@ -28,8 +28,6 @@
     
     _auth = auth;
     _innerPlayer = [[SPTAudioStreamingController alloc] initWithClientId:auth.clientID];
-    _innerPlayer.delegate = nil;
-    _innerPlayer.playbackDelegate = nil;
     
     return self;
 }
@@ -38,7 +36,6 @@
 
 - (nullable NSError *)_setDataSource:(nonnull NSString*)source {
     _source = source;
-    NSLog(@"3: %@", _source);
     return nil;
 }
 
@@ -51,7 +48,6 @@
         }
     }
     
-    NSLog(@"4: %@", _source);
     NSURL *trackURI = [NSURL URLWithString:_source];
     
     if([self executeBlockingWise:^(SPTErrorableOperationCallback callback) {
@@ -101,12 +97,6 @@
 
 - (int)getDuration {
     return round(_innerPlayer.currentTrackDuration*1000);
-}
-
-#pragma mark - SPTAudioStreamingDelegate
-
--(void)audioStreamingDidLogout:(SPTAudioStreamingController *)audioStreaming {
-    NSLog(@"audioStreamingDidLogout");
 }
 
 #pragma mark - Misc

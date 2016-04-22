@@ -53,7 +53,6 @@
     SPTTrack *track = [_page.tracksForPlayback objectAtIndex:indexPath.row];
     
     SKSpotifyPlayerViewController *destinationViewController = segue.destinationViewController;
-    NSLog(@"1: %@", track.uri.absoluteString);
     destinationViewController.uri = track.uri.absoluteString;
 }
 

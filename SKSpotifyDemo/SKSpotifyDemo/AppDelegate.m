@@ -28,13 +28,15 @@ static NSString * const kSpotifySessionUserDefaultKey = @"SessionUserDefaultsKey
     [[SPTAuth defaultInstance] setRequestedScopes:@[SPTAuthStreamingScope]];
     [[SPTAuth defaultInstance] setSessionUserDefaultsKey:kSpotifySessionUserDefaultKey];
     
-    // Construct a login URL and open it
-    NSURL *loginURL = [[SPTAuth defaultInstance] loginURL];
-    
-    // Opening a URL in Safari close to application launch may trigger
-    // an iOS bug, so we wait a bit before doing so.
-    [application performSelector:@selector(openURL:)
-                      withObject:loginURL afterDelay:0.1];
+    if(![[SPTAuth defaultInstance] session].isValid) {
+        // Construct a login URL and open it
+        NSURL *loginURL = [[SPTAuth defaultInstance] loginURL];
+        
+        // Opening a URL in Safari close to application launch may trigger
+        // an iOS bug, so we wait a bit before doing so.
+        [application performSelector:@selector(openURL:)
+                          withObject:loginURL afterDelay:0.1];
+    }
     
     return YES;
 }

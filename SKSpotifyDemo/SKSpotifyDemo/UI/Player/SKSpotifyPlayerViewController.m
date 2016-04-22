@@ -42,7 +42,6 @@
     [self updatePlayPauseButton];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSLog(@"2: %@", _uri);
         [_player setDataSource:_uri];
         [_player prepare];
         [_player start];
