@@ -28,6 +28,8 @@ static NSString * const kSpotifySessionUserDefaultKey = @"SessionUserDefaultsKey
     [[SPTAuth defaultInstance] setRequestedScopes:@[SPTAuthStreamingScope]];
     [[SPTAuth defaultInstance] setSessionUserDefaultsKey:kSpotifySessionUserDefaultKey];
     
+    _player = [[SKSpotifyPlayer alloc] initWithAuth:[SPTAuth defaultInstance]];
+    
     if(![[SPTAuth defaultInstance] session].isValid) {
         // Construct a login URL and open it
         NSURL *loginURL = [[SPTAuth defaultInstance] loginURL];
@@ -76,8 +78,6 @@ static NSString * const kSpotifySessionUserDefaultKey = @"SessionUserDefaultsKey
                 NSLog(@"*** Auth error: %@", error);
                 return;
             }
-            
-            _player = [[SKSpotifyPlayer alloc] initWithAuth:[SPTAuth defaultInstance]];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"sessionUpdated" object:self];
         }];

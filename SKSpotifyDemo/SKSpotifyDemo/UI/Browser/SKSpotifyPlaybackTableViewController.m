@@ -23,6 +23,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sessionUpdatedNotification:) name:@"sessionUpdated" object:nil];
+    
+    [self queryAndShow];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -46,6 +48,23 @@
     return cell;
 }
 
+#pragma mark - Misc
+
+- (void)queryAndShow {
+    SPTAuth *auth = [SPTAuth defaultInstance];
+    SPTSession *session = auth.session;
+    if([session isValid]) {
+        [SPTSearch performSearchWithQuery:@"X-Japan" queryType:SPTQueryTypeTrack accessToken:session.accessToken callback:^(NSError *error, id object) {
+            
+            _page = object;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
+        }];
+    }
+}
+
 #pragma mark - Segue
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -59,18 +78,7 @@
 #pragma mark - NSNotification
 
 -(void)sessionUpdatedNotification:(NSNotification *)notification {
-    SPTAuth *auth = [SPTAuth defaultInstance];
-    SPTSession *session = auth.session;
-    if([session isValid]) {
-        [SPTSearch performSearchWithQuery:@"X-Japan" queryType:SPTQueryTypeTrack accessToken:session.accessToken callback:^(NSError *error, id object) {
-            
-            _page = object;
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-            });
-        }];
-    }
+    [self queryAndShow];
 }
 
 @end
