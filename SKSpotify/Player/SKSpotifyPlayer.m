@@ -10,7 +10,7 @@
 
 #import <Spotify/Spotify.h>
 
-@interface SKSpotifyPlayer ()
+@interface SKSpotifyPlayer () <SPTAudioStreamingDelegate>
 
 @property(nonatomic, strong, nonnull) SPTAuth *auth;
 @property(nonatomic, strong, nullable) NSString *source;
@@ -28,6 +28,8 @@
     
     _auth = auth;
     _innerPlayer = [[SPTAudioStreamingController alloc] initWithClientId:auth.clientID];
+    _innerPlayer.delegate = nil;
+    _innerPlayer.playbackDelegate = nil;
     
     return self;
 }
@@ -36,16 +38,20 @@
 
 - (nullable NSError *)_setDataSource:(nonnull NSString*)source {
     _source = source;
+    NSLog(@"3: %@", _source);
     return nil;
 }
 
 - (nullable NSError *)_prepare {
-    if([self executeBlockingWise:^(SPTErrorableOperationCallback callback) {
-        [_innerPlayer loginWithSession:_auth.session callback:callback];
-    }]) {
-        return _error;
+    if(!_innerPlayer.loggedIn) {
+        if([self executeBlockingWise:^(SPTErrorableOperationCallback callback) {
+            [_innerPlayer loginWithSession:_auth.session callback:callback];
+        }]) {
+            return _error;
+        }
     }
     
+    NSLog(@"4: %@", _source);
     NSURL *trackURI = [NSURL URLWithString:_source];
     
     if([self executeBlockingWise:^(SPTErrorableOperationCallback callback) {
@@ -70,8 +76,14 @@
 }
 
 - (nullable NSError *)_stop {
-    return [self executeBlockingWise:^(SPTErrorableOperationCallback callback) {
+    if([self executeBlockingWise:^(SPTErrorableOperationCallback callback) {
         [_innerPlayer stop:callback];
+    }]) {
+        return _error;
+    }
+    
+    return [self executeBlockingWise:^(SPTErrorableOperationCallback callback) {
+        [_innerPlayer logout:callback];
     }];
 }
 
@@ -91,8 +103,18 @@
     return round(_innerPlayer.currentTrackDuration*1000);
 }
 
+#pragma mark - SPTAudioStreamingDelegate
+
+-(void)audioStreamingDidLogout:(SPTAudioStreamingController *)audioStreaming {
+    NSLog(@"audioStreamingDidLogout");
+}
+
+#pragma mark - Misc
+
 - (NSError *)executeBlockingWise:(void (^_Nonnull)(SPTErrorableOperationCallback))task {
     _semaphore = dispatch_semaphore_create(0);
+    
+    _error = [NSError errorWithDomain:@"time out" code:0 userInfo:nil];
     
     SPTErrorableOperationCallback callback = ^void(NSError *error) {
         _error = error;
@@ -101,7 +123,8 @@
     
     task(callback);
     
-    dispatch_semaphore_wait(_semaphore, DISPATCH_TIME_FOREVER);
+    dispatch_time_t timeUp= dispatch_time(DISPATCH_TIME_NOW, (uint64_t)(10 * NSEC_PER_SEC));
+    dispatch_semaphore_wait(_semaphore, timeUp);
     
     return _error;
 }

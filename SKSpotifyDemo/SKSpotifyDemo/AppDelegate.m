@@ -8,13 +8,13 @@
 
 #import "AppDelegate.h"
 
+#import <Spotify/Spotify.h>
+
 static NSString * const kSpotifyClientId = @"4d4573064a0b4f64ad0629adc987184a";
 static NSString * const kSpotifyClientCallback = @"skspotify://callback";
 static NSString * const kSpotifySessionUserDefaultKey = @"SessionUserDefaultsKey";
 
 @interface AppDelegate ()
-
-@property (nonatomic, strong) SPTAudioStreamingController *player;
 
 @end
 
@@ -74,6 +74,8 @@ static NSString * const kSpotifySessionUserDefaultKey = @"SessionUserDefaultsKey
                 NSLog(@"*** Auth error: %@", error);
                 return;
             }
+            
+            _player = [[SKSpotifyPlayer alloc] initWithAuth:[SPTAuth defaultInstance]];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"sessionUpdated" object:self];
         }];

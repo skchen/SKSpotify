@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		8262C0851CC7483500EB596C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8262C0841CC7483500EB596C /* main.m */; };
 		8262C0881CC7483500EB596C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8262C0871CC7483500EB596C /* AppDelegate.m */; };
-		8262C08B1CC7483500EB596C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8262C08A1CC7483500EB596C /* ViewController.m */; };
 		8262C08E1CC7483500EB596C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8262C08C1CC7483500EB596C /* Main.storyboard */; };
 		8262C0901CC7483500EB596C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8262C08F1CC7483500EB596C /* Assets.xcassets */; };
 		8262C0931CC7483500EB596C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8262C0911CC7483500EB596C /* LaunchScreen.storyboard */; };
@@ -17,6 +16,8 @@
 		82C0D1A71CC74D220025C530 /* SKUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82C0D1A61CC74D220025C530 /* SKUtils.framework */; };
 		82C0D1A91CC74D7F0025C530 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82C0D1A81CC74D7F0025C530 /* AVFoundation.framework */; };
 		82C0D1AE1CC79C280025C530 /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82C0D1AD1CC79C280025C530 /* Spotify.framework */; };
+		82C0D27E1CC8BBAB0025C530 /* SKSpotifyPlaybackTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82C0D27D1CC8BBAB0025C530 /* SKSpotifyPlaybackTableViewController.m */; };
+		82C0D2811CC8C6DE0025C530 /* SKSpotifyPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82C0D2801CC8C6DE0025C530 /* SKSpotifyPlayerViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,8 +25,6 @@
 		8262C0841CC7483500EB596C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8262C0861CC7483500EB596C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8262C0871CC7483500EB596C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		8262C0891CC7483500EB596C /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		8262C08A1CC7483500EB596C /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		8262C08D1CC7483500EB596C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8262C08F1CC7483500EB596C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8262C0921CC7483500EB596C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -34,6 +33,10 @@
 		82C0D1A61CC74D220025C530 /* SKUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SKUtils.framework; path = ../../../Carthage/Build/iOS/SKUtils.framework; sourceTree = "<group>"; };
 		82C0D1A81CC74D7F0025C530 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		82C0D1AD1CC79C280025C530 /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Spotify.framework; path = ../../../SKSpotify/Framework/Spotify.framework; sourceTree = "<group>"; };
+		82C0D27C1CC8BBAB0025C530 /* SKSpotifyPlaybackTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKSpotifyPlaybackTableViewController.h; sourceTree = "<group>"; };
+		82C0D27D1CC8BBAB0025C530 /* SKSpotifyPlaybackTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKSpotifyPlaybackTableViewController.m; sourceTree = "<group>"; };
+		82C0D27F1CC8C6DE0025C530 /* SKSpotifyPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKSpotifyPlayerViewController.h; sourceTree = "<group>"; };
+		82C0D2801CC8C6DE0025C530 /* SKSpotifyPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKSpotifyPlayerViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,11 +73,10 @@
 		8262C0821CC7483500EB596C /* SKSpotifyDemo */ = {
 			isa = PBXGroup;
 			children = (
+				82C0D2791CC8BB720025C530 /* UI */,
 				82C0D1A31CC74C7E0025C530 /* Framework */,
 				8262C0861CC7483500EB596C /* AppDelegate.h */,
 				8262C0871CC7483500EB596C /* AppDelegate.m */,
-				8262C0891CC7483500EB596C /* ViewController.h */,
-				8262C08A1CC7483500EB596C /* ViewController.m */,
 				8262C08C1CC7483500EB596C /* Main.storyboard */,
 				8262C08F1CC7483500EB596C /* Assets.xcassets */,
 				8262C0911CC7483500EB596C /* LaunchScreen.storyboard */,
@@ -101,6 +103,33 @@
 				82C0D1A61CC74D220025C530 /* SKUtils.framework */,
 			);
 			path = Framework;
+			sourceTree = "<group>";
+		};
+		82C0D2791CC8BB720025C530 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				82C0D27A1CC8BB720025C530 /* Browser */,
+				82C0D27B1CC8BB720025C530 /* Player */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		82C0D27A1CC8BB720025C530 /* Browser */ = {
+			isa = PBXGroup;
+			children = (
+				82C0D27C1CC8BBAB0025C530 /* SKSpotifyPlaybackTableViewController.h */,
+				82C0D27D1CC8BBAB0025C530 /* SKSpotifyPlaybackTableViewController.m */,
+			);
+			path = Browser;
+			sourceTree = "<group>";
+		};
+		82C0D27B1CC8BB720025C530 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				82C0D27F1CC8C6DE0025C530 /* SKSpotifyPlayerViewController.h */,
+				82C0D2801CC8C6DE0025C530 /* SKSpotifyPlayerViewController.m */,
+			);
+			path = Player;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,9 +220,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8262C08B1CC7483500EB596C /* ViewController.m in Sources */,
 				8262C0881CC7483500EB596C /* AppDelegate.m in Sources */,
 				8262C0851CC7483500EB596C /* main.m in Sources */,
+				82C0D2811CC8C6DE0025C530 /* SKSpotifyPlayerViewController.m in Sources */,
+				82C0D27E1CC8BBAB0025C530 /* SKSpotifyPlaybackTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

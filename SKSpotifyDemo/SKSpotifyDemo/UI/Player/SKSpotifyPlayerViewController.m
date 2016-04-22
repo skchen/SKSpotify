@@ -6,12 +6,13 @@
 //  Copyright © 2016年 SK. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "SKSpotifyPlayerViewController.h"
 
 #import <Spotify/Spotify.h>
 @import SKSpotify;
+#import "AppDelegate.h"
 
-@interface ViewController ()
+@interface SKSpotifyPlayerViewController ()
 
 @property (weak, nonatomic) IBOutlet UIButton *playPauseButton;
 - (IBAction)onPlayPauseButtonPressed:(id)sender;
@@ -26,11 +27,13 @@
 
 @end
 
-@implementation ViewController
+@implementation SKSpotifyPlayerViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _player = [[SKSpotifyPlayer alloc] initWithAuth:[SPTAuth defaultInstance]];
+    
+    AppDelegate *app = [[UIApplication sharedApplication] delegate];
+    _player = app.player;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -38,7 +41,24 @@
     [self resetProgress];
     [self updatePlayPauseButton];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sessionUpdatedNotification:) name:@"sessionUpdated" object:nil];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSLog(@"2: %@", _uri);
+        [_player setDataSource:_uri];
+        [_player prepare];
+        [_player start];
+        
+        [self updatePlayPauseButton];
+        [self updateDuration];
+        [self updateProgressLater];
+    });
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [_player stop];
+    });
 }
 
 - (void)didReceiveMemoryWarning {
@@ -114,20 +134,6 @@
             [self updateProgress];
             [self updateProgressLater];
         }
-    });
-}
-
-#pragma mark - NSNotification
-
--(void)sessionUpdatedNotification:(NSNotification *)notification {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [_player setDataSource:@"spotify:track:58s6EuEYJdlb0kO7awm3Vp"];
-        [_player prepare];
-        [_player start];
-        
-        [self updatePlayPauseButton];
-        [self updateDuration];
-        [self updateProgressLater];
     });
 }
 

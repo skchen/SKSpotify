@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface SKSpotifyPlayerViewController : UIViewController
+
+@property(nonatomic, copy, nullable) NSString *uri;
 
 
 @end
