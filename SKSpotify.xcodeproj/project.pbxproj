@@ -23,6 +23,27 @@
 			remoteGlobalIDString = 8262C0391CC7433C00EB596C;
 			remoteInfo = SKSpotify;
 		};
+		82FF929D1CFC4B1200CBE12E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 82FF92961CFC4B1200CBE12E /* SKUtils.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 826803541CA94AE600C8B952;
+			remoteInfo = SKUtils;
+		};
+		82FF929F1CFC4B1200CBE12E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 82FF92961CFC4B1200CBE12E /* SKUtils.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8268035E1CA94AE700C8B952;
+			remoteInfo = SKUtilsTests;
+		};
+		82FF92A11CFC4B1200CBE12E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 82FF92961CFC4B1200CBE12E /* SKUtils.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 82FB6D961CB6E5AE000DE9E9;
+			remoteInfo = "SKUtils-iOS7";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -36,7 +57,7 @@
 		8262C0A71CC74B1100EB596C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		8262C0A91CC74B6000EB596C /* SKSpotifyPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKSpotifyPlayer.h; sourceTree = "<group>"; };
 		8262C0AA1CC74B6000EB596C /* SKSpotifyPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKSpotifyPlayer.m; sourceTree = "<group>"; };
-		82C0D1A11CC74BAF0025C530 /* SKUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SKUtils.framework; path = ../../Carthage/Build/iOS/SKUtils.framework; sourceTree = "<group>"; };
+		82FF92961CFC4B1200CBE12E /* SKUtils.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SKUtils.xcodeproj; path = Libraries/SKUtils/SKUtils.xcodeproj; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,8 +121,8 @@
 		8262C0A31CC74A1A00EB596C /* Framework */ = {
 			isa = PBXGroup;
 			children = (
+				82FF92961CFC4B1200CBE12E /* SKUtils.xcodeproj */,
 				8262C0A71CC74B1100EB596C /* AVFoundation.framework */,
-				82C0D1A11CC74BAF0025C530 /* SKUtils.framework */,
 				8262C0A41CC74A1A00EB596C /* Spotify.framework */,
 			);
 			path = Framework;
@@ -114,6 +135,16 @@
 				8262C0AA1CC74B6000EB596C /* SKSpotifyPlayer.m */,
 			);
 			path = Player;
+			sourceTree = "<group>";
+		};
+		82FF92971CFC4B1200CBE12E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				82FF929E1CFC4B1200CBE12E /* SKUtils.framework */,
+				82FF92A01CFC4B1200CBE12E /* SKUtilsTests.xctest */,
+				82FF92A21CFC4B1200CBE12E /* SKUtils.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,6 +225,12 @@
 			mainGroup = 8262C0301CC7433C00EB596C;
 			productRefGroup = 8262C03B1CC7433C00EB596C /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 82FF92971CFC4B1200CBE12E /* Products */;
+					ProjectRef = 82FF92961CFC4B1200CBE12E /* SKUtils.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8262C0391CC7433C00EB596C /* SKSpotify */,
@@ -201,6 +238,30 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		82FF929E1CFC4B1200CBE12E /* SKUtils.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SKUtils.framework;
+			remoteRef = 82FF929D1CFC4B1200CBE12E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		82FF92A01CFC4B1200CBE12E /* SKUtilsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SKUtilsTests.xctest;
+			remoteRef = 82FF929F1CFC4B1200CBE12E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		82FF92A21CFC4B1200CBE12E /* SKUtils.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SKUtils.framework;
+			remoteRef = 82FF92A11CFC4B1200CBE12E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8262C0381CC7433C00EB596C /* Resources */ = {
