@@ -10,6 +10,8 @@
 
 #import <Spotify/Spotify.h>
 
+#import "SKSpotifyPagedList.h"
+
 static const NSUInteger kPageSizeDefault = 50;
 
 static NSString * const kCacheKeyFeaturedPlaylists = @"FeaturedPlaylists";
@@ -33,15 +35,27 @@ static NSString * const kCacheKeyFeaturedPlaylists = @"FeaturedPlaylists";
 }
 
 - (void)listFeaturedPlaylists:(BOOL)refresh extend:(BOOL)extend country:(nullable NSString *)country locale:(nullable NSString *)locale timestamp:(nullable NSDate *)timestamp success:(nonnull SKPagedListCallback)success failure:(nonnull SKErrorCallback)failure {
-
-    [SPTBrowse requestFeaturedPlaylistsForCountry:country limit:_pageSize offset:0 locale:locale timestamp:timestamp accessToken:_token callback:^(NSError *error, id object) {
+    
+    NSString *cacheKey = [self cacheKeyWithElements:4, kCacheKeyFeaturedPlaylists, country, locale, timestamp];
+    
+    [self pagedListAsync:refresh extend:extend cacheKey:cacheKey request:^(id<SKPagedList>  _Nullable pagedList, SKWrappedPagedListCallback  _Nonnull success, SKErrorCallback  _Nonnull failure) {
         
-        if(error) {
-            failure(error);
+        if(pagedList) {
+            NSLog(@"pagedList");
         } else {
-            SPTFeaturedPlaylistList *featuredPlaylistList = (SPTFeaturedPlaylistList *)object;
+            [SPTBrowse requestFeaturedPlaylistsForCountry:country limit:_pageSize offset:0 locale:locale timestamp:timestamp accessToken:_token callback:^(NSError *error, id object) {
+                
+                if(error) {
+                    failure(error);
+                } else {
+                    SKSpotifyPagedList *pagedList = [[SKSpotifyPagedList alloc] initWithListPage:object];
+                    success(pagedList);
+                }
+            }];
         }
-    }];
+    } success:success failure:failure];
+
+    
 }
 
 @end

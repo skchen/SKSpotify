@@ -6,8 +6,12 @@
 //  Copyright © 2016年 SK. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <SKUtils/SKUtils.h>
 
-@interface SKSpotifyPagedList : NSObject
+@class SPTListPage;
+
+@interface SKSpotifyPagedList : NSObject<SKPagedList>
+
+- (nonnull instancetype)initWithListPage:(nonnull SPTListPage *)list;
 
 @end
