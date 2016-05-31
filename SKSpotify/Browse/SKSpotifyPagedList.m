@@ -13,7 +13,6 @@
 @interface SKSpotifyPagedList ()
 
 @property(nonatomic, strong, nonnull, readonly) NSMutableArray *mutableList;
-@property(nonatomic, strong, nonnull, readonly) SPTListPage *lastPage;
 
 @end
 

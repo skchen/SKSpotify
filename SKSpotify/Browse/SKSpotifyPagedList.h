@@ -12,6 +12,8 @@
 
 @interface SKSpotifyPagedList : NSObject<SKPagedList>
 
+@property(nonatomic, strong, nonnull, readonly) SPTListPage *lastPage;
+
 - (nonnull instancetype)initWithListPage:(nonnull SPTListPage *)list;
 
 @end
