@@ -15,6 +15,8 @@
 		82C0D1B91CC889800025C530 /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262C0A41CC74A1A00EB596C /* Spotify.framework */; };
 		82FF92C51CFD08D400CBE12E /* SKSpotifyBrowser.h in Headers */ = {isa = PBXBuildFile; fileRef = 82FF92C31CFD08D400CBE12E /* SKSpotifyBrowser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		82FF92C61CFD08D400CBE12E /* SKSpotifyBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 82FF92C41CFD08D400CBE12E /* SKSpotifyBrowser.m */; };
+		82FF92EB1CFD4CE500CBE12E /* SKSpotifyPagedList.h in Headers */ = {isa = PBXBuildFile; fileRef = 82FF92E91CFD4CE500CBE12E /* SKSpotifyPagedList.h */; };
+		82FF92EC1CFD4CE500CBE12E /* SKSpotifyPagedList.m in Sources */ = {isa = PBXBuildFile; fileRef = 82FF92EA1CFD4CE500CBE12E /* SKSpotifyPagedList.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -24,27 +26,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8262C0391CC7433C00EB596C;
 			remoteInfo = SKSpotify;
-		};
-		82FF929D1CFC4B1200CBE12E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 82FF92961CFC4B1200CBE12E /* SKUtils.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 826803541CA94AE600C8B952;
-			remoteInfo = SKUtils;
-		};
-		82FF929F1CFC4B1200CBE12E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 82FF92961CFC4B1200CBE12E /* SKUtils.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8268035E1CA94AE700C8B952;
-			remoteInfo = SKUtilsTests;
-		};
-		82FF92A11CFC4B1200CBE12E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 82FF92961CFC4B1200CBE12E /* SKUtils.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 82FB6D961CB6E5AE000DE9E9;
-			remoteInfo = "SKUtils-iOS7";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -59,9 +40,10 @@
 		8262C0A71CC74B1100EB596C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		8262C0A91CC74B6000EB596C /* SKSpotifyPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKSpotifyPlayer.h; sourceTree = "<group>"; };
 		8262C0AA1CC74B6000EB596C /* SKSpotifyPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKSpotifyPlayer.m; sourceTree = "<group>"; };
-		82FF92961CFC4B1200CBE12E /* SKUtils.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SKUtils.xcodeproj; path = Libraries/SKUtils/SKUtils.xcodeproj; sourceTree = SOURCE_ROOT; };
 		82FF92C31CFD08D400CBE12E /* SKSpotifyBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKSpotifyBrowser.h; sourceTree = "<group>"; };
 		82FF92C41CFD08D400CBE12E /* SKSpotifyBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKSpotifyBrowser.m; sourceTree = "<group>"; };
+		82FF92E91CFD4CE500CBE12E /* SKSpotifyPagedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKSpotifyPagedList.h; sourceTree = "<group>"; };
+		82FF92EA1CFD4CE500CBE12E /* SKSpotifyPagedList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKSpotifyPagedList.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,7 +108,6 @@
 		8262C0A31CC74A1A00EB596C /* Framework */ = {
 			isa = PBXGroup;
 			children = (
-				82FF92961CFC4B1200CBE12E /* SKUtils.xcodeproj */,
 				8262C0A71CC74B1100EB596C /* AVFoundation.framework */,
 				8262C0A41CC74A1A00EB596C /* Spotify.framework */,
 			);
@@ -142,21 +123,13 @@
 			path = Player;
 			sourceTree = "<group>";
 		};
-		82FF92971CFC4B1200CBE12E /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				82FF929E1CFC4B1200CBE12E /* SKUtils.framework */,
-				82FF92A01CFC4B1200CBE12E /* SKUtilsTests.xctest */,
-				82FF92A21CFC4B1200CBE12E /* SKUtils.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		82FF92BE1CFD08AA00CBE12E /* Browse */ = {
 			isa = PBXGroup;
 			children = (
 				82FF92C31CFD08D400CBE12E /* SKSpotifyBrowser.h */,
 				82FF92C41CFD08D400CBE12E /* SKSpotifyBrowser.m */,
+				82FF92E91CFD4CE500CBE12E /* SKSpotifyPagedList.h */,
+				82FF92EA1CFD4CE500CBE12E /* SKSpotifyPagedList.m */,
 			);
 			path = Browse;
 			sourceTree = "<group>";
@@ -171,6 +144,7 @@
 				8262C0AB1CC74B6000EB596C /* SKSpotifyPlayer.h in Headers */,
 				82FF92C51CFD08D400CBE12E /* SKSpotifyBrowser.h in Headers */,
 				8262C03E1CC7433C00EB596C /* SKSpotify.h in Headers */,
+				82FF92EB1CFD4CE500CBE12E /* SKSpotifyPagedList.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,12 +214,6 @@
 			mainGroup = 8262C0301CC7433C00EB596C;
 			productRefGroup = 8262C03B1CC7433C00EB596C /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 82FF92971CFC4B1200CBE12E /* Products */;
-					ProjectRef = 82FF92961CFC4B1200CBE12E /* SKUtils.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				8262C0391CC7433C00EB596C /* SKSpotify */,
@@ -253,30 +221,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		82FF929E1CFC4B1200CBE12E /* SKUtils.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SKUtils.framework;
-			remoteRef = 82FF929D1CFC4B1200CBE12E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		82FF92A01CFC4B1200CBE12E /* SKUtilsTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = SKUtilsTests.xctest;
-			remoteRef = 82FF929F1CFC4B1200CBE12E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		82FF92A21CFC4B1200CBE12E /* SKUtils.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SKUtils.framework;
-			remoteRef = 82FF92A11CFC4B1200CBE12E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8262C0381CC7433C00EB596C /* Resources */ = {
@@ -302,6 +246,7 @@
 			files = (
 				8262C0AC1CC74B6000EB596C /* SKSpotifyPlayer.m in Sources */,
 				82FF92C61CFD08D400CBE12E /* SKSpotifyBrowser.m in Sources */,
+				82FF92EC1CFD4CE500CBE12E /* SKSpotifyPagedList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
