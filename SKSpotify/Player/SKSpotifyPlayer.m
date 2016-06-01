@@ -13,7 +13,7 @@
 @interface SKSpotifyPlayer () <SPTAudioStreamingDelegate>
 
 @property(nonatomic, strong, nonnull) SPTAuth *auth;
-@property(nonatomic, strong, nullable) NSString *source;
+@property(nonatomic, strong, nullable) SPTPlaylistTrack *source;
 @property(nonatomic, strong, nonnull) SPTAudioStreamingController *innerPlayer;
 
 @property(nonatomic, strong, nullable) NSError *error;
@@ -34,89 +34,68 @@
 
 #pragma mark - Abstract
 
-- (nullable NSError *)_setDataSource:(nonnull NSString*)source {
-    _source = source;
-    return nil;
+- (void)_setDataSource:(SPTPlaylistTrack *)source {
+    _source = (SPTPlaylistTrack *)source;
 }
 
-- (nullable NSError *)_prepare {
-    if(!_innerPlayer.loggedIn) {
-        if([self executeBlockingWise:^(SPTErrorableOperationCallback callback) {
-            [_innerPlayer loginWithSession:_auth.session callback:callback];
-        }]) {
-            return _error;
+- (void)_prepare:(SKErrorCallback)callback {
+    SKErrorCallback playCallback = ^(NSError *error) {
+        if(error) {
+            callback(error);
+        } else {
+            [self _pause:callback];
         }
-    }
-    
-    NSURL *trackURI = [NSURL URLWithString:_source];
-    
-    if([self executeBlockingWise:^(SPTErrorableOperationCallback callback) {
-        [_innerPlayer playURIs:@[ trackURI ] fromIndex:0 callback:callback];
-    }]) {
-        return _error;
-    }
-    
-    return [self _pause];
-}
-
-- (nullable NSError *)_start {
-    return [self executeBlockingWise:^(SPTErrorableOperationCallback callback) {
-        [_innerPlayer setIsPlaying:YES callback:callback];
-    }];
-}
-
-- (nullable NSError *)_pause {
-    return [self executeBlockingWise:^(SPTErrorableOperationCallback callback) {
-        [_innerPlayer setIsPlaying:NO callback:callback];
-    }];
-}
-
-- (nullable NSError *)_stop {
-    if([self executeBlockingWise:^(SPTErrorableOperationCallback callback) {
-        [_innerPlayer stop:callback];
-    }]) {
-        return _error;
-    }
-    
-    return [self executeBlockingWise:^(SPTErrorableOperationCallback callback) {
-        [_innerPlayer logout:callback];
-    }];
-}
-
-- (nullable NSError *)_seekTo:(int)msec {
-    float offset = (float)msec/1000;
-    
-    return [self executeBlockingWise:^(SPTErrorableOperationCallback callback) {
-        [_innerPlayer seekToOffset:offset callback:callback];
-    }];
-}
-
-- (int)getCurrentPosition {
-    return round(_innerPlayer.currentPlaybackPosition*1000);
-}
-
-- (int)getDuration {
-    return round(_innerPlayer.currentTrackDuration*1000);
-}
-
-#pragma mark - Misc
-
-- (NSError *)executeBlockingWise:(void (^_Nonnull)(SPTErrorableOperationCallback))task {
-    _semaphore = dispatch_semaphore_create(0);
-    
-    _error = [NSError errorWithDomain:@"time out" code:0 userInfo:nil];
-    
-    SPTErrorableOperationCallback callback = ^void(NSError *error) {
-        _error = error;
-        dispatch_semaphore_signal(_semaphore);
     };
     
-    task(callback);
+    SKErrorCallback loginCallback = ^(NSError *error) {
+        if(error) {
+            callback(error);
+        } else {
+            [_innerPlayer playURIs:@[_source.uri] fromIndex:0 callback:playCallback];
+        }
+    };
     
-    dispatch_time_t timeUp= dispatch_time(DISPATCH_TIME_NOW, (uint64_t)(10 * NSEC_PER_SEC));
-    dispatch_semaphore_wait(_semaphore, timeUp);
-    
-    return _error;
+    if([_innerPlayer loggedIn]) {
+        [_innerPlayer playURIs:@[_source.uri] fromIndex:0 callback:playCallback];
+    } else {
+        [_innerPlayer loginWithSession:_auth.session callback:loginCallback];
+    }
+}
+
+- (void)_start:(SKErrorCallback)callback {
+    [_innerPlayer setIsPlaying:YES callback:callback];
+}
+
+- (void)_pause:(SKErrorCallback)callback {
+    [_innerPlayer setIsPlaying:NO callback:callback];
+}
+
+- (void)_stop:(SKErrorCallback)callback {
+    [_innerPlayer stop:^(NSError *error) {
+        if(error) {
+            callback(error);
+        } else {
+            [_innerPlayer logout:callback];
+        }
+    }];
+}
+
+- (void)_seekTo:(NSTimeInterval)time success:(SKTimeCallback)success failure:(SKErrorCallback)failure {
+    [_innerPlayer seekToOffset:time callback:^(NSError *error) {
+        if(error) {
+            failure(error);
+        } else {
+            success(time);
+        }
+    }];
+}
+
+- (void)_getCurrentPosition:(SKTimeCallback)success failure:(SKErrorCallback)failure {
+    success(_innerPlayer.currentPlaybackPosition);
+}
+
+- (void)_getDuration:(SKTimeCallback)success failure:(SKErrorCallback)failure {
+    success(_innerPlayer.currentTrackDuration);
 }
 
 @end
