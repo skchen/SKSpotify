@@ -9,9 +9,9 @@
 @import SKUtils;
 
 @class SPTAuth;
-@class SPTPlaylistTrack;
+@class SPTPartialTrack;
 
-@interface SKSpotifyPlayer : SKPlayer<SPTPlaylistTrack *>
+@interface SKSpotifyPlayer : SKPlayer<SPTPartialTrack *>
 
 - (nonnull instancetype)initWithAuth:(nonnull SPTAuth *)auth;
 

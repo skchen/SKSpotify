@@ -13,7 +13,7 @@
 @interface SKSpotifyPlayer () <SPTAudioStreamingDelegate>
 
 @property(nonatomic, strong, nonnull) SPTAuth *auth;
-@property(nonatomic, strong, nullable) SPTPlaylistTrack *source;
+@property(nonatomic, strong, nullable) SPTPartialTrack *source;
 @property(nonatomic, strong, nonnull) SPTAudioStreamingController *innerPlayer;
 
 @property(nonatomic, strong, nullable) NSError *error;
@@ -34,8 +34,8 @@
 
 #pragma mark - Abstract
 
-- (void)_setDataSource:(SPTPlaylistTrack *)source {
-    _source = (SPTPlaylistTrack *)source;
+- (void)_setDataSource:(SPTPartialTrack *)source {
+    _source = (SPTPartialTrack *)source;
 }
 
 - (void)_prepare:(SKErrorCallback)callback {
