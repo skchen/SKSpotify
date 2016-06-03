@@ -43,7 +43,7 @@ typedef void (^SKSpotifyAsyncPagedListRequest)(SKSpotifyPagedListCallback succes
 
 - (void)listFeaturedPlaylists:(BOOL)refresh extend:(BOOL)extend country:(nullable NSString *)country locale:(nullable NSString *)locale timestamp:(nullable NSDate *)timestamp success:(nonnull SKPagedListCallback)success failure:(nonnull SKErrorCallback)failure {
     
-    NSString *cacheKey = [self cacheKeyWithElements:4, kCacheKeyFeaturedPlaylists, country, locale, timestamp];
+    NSString *cacheKey = [SKCachedAsync cacheKeyWithElements:4, kCacheKeyFeaturedPlaylists, country, locale, timestamp];
     
     [self spotifyPagedListAsync:refresh extend:extend cacheKey:cacheKey request:^(SKSpotifyPagedListCallback success, SKErrorCallback failure) {
         [SPTBrowse requestFeaturedPlaylistsForCountry:country limit:_pageSize offset:0 locale:locale timestamp:timestamp accessToken:_token callback:^(NSError *error, id object) {
@@ -60,7 +60,7 @@ typedef void (^SKSpotifyAsyncPagedListRequest)(SKSpotifyPagedListCallback succes
 
 - (void)listNewReleases:(BOOL)refresh extend:(BOOL)extend country:(nullable NSString *)country success:(nonnull SKPagedListCallback)success failure:(nonnull SKErrorCallback)failure {
     
-    NSString *cacheKey = [self cacheKeyWithElements:2, kCacheKeyNewReleases, country];
+    NSString *cacheKey = [SKCachedAsync cacheKeyWithElements:2, kCacheKeyNewReleases, country];
     
     [self spotifyPagedListAsync:refresh extend:extend cacheKey:cacheKey request:^(SKSpotifyPagedListCallback success, SKErrorCallback failure) {
         NSError *error;
@@ -87,7 +87,7 @@ typedef void (^SKSpotifyAsyncPagedListRequest)(SKSpotifyPagedListCallback succes
 
 - (void)listAlbum:(BOOL)refresh extend:(BOOL)extend album:(nonnull SPTPartialAlbum *)album market:(nullable NSString *)market success:(nonnull SKPagedListCallback)success failure:(nonnull SKErrorCallback)failure {
     
-    NSString *cacheKey = [self cacheKeyWithElements:2, kCacheKeyAlbum, album.uri.absoluteString];
+    NSString *cacheKey = [SKCachedAsync cacheKeyWithElements:2, kCacheKeyAlbum, album.uri.absoluteString];
     
     [self spotifyPagedListAsync:refresh extend:extend cacheKey:cacheKey request:^(SKSpotifyPagedListCallback success, SKErrorCallback failure) {
         [SPTAlbum albumWithURI:album.uri accessToken:_token market:market callback:^(NSError *error, id object) {
@@ -104,7 +104,7 @@ typedef void (^SKSpotifyAsyncPagedListRequest)(SKSpotifyPagedListCallback succes
 
 - (void)listPlaylist:(BOOL)refresh extend:(BOOL)extend playlist:(nonnull SPTPartialPlaylist *)playlist success:(nonnull SKPagedListCallback)success failure:(nonnull SKErrorCallback)failure {
     
-    NSString *cacheKey = [self cacheKeyWithElements:2, kCacheKeyPlaylist, playlist.uri.absoluteString];
+    NSString *cacheKey = [SKCachedAsync cacheKeyWithElements:2, kCacheKeyPlaylist, playlist.uri.absoluteString];
     
     [self spotifyPagedListAsync:refresh extend:extend cacheKey:cacheKey request:^(SKSpotifyPagedListCallback success, SKErrorCallback failure) {
         [SPTPlaylistSnapshot playlistWithURI:playlist.uri accessToken:_token callback:^(NSError *error, id object) {
