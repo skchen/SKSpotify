@@ -10,13 +10,18 @@
 
 #import <Spotify/Spotify.h>
 
-@interface SKSpotifyPlayer () <SPTAudioStreamingDelegate>
+#undef SKLog
+#define SKLog(__FORMAT__, ...) 
+
+@interface SKSpotifyPlayer () <SPTAudioStreamingDelegate, SPTAudioStreamingPlaybackDelegate>
 
 @property(nonatomic, strong, nonnull) SPTAuth *auth;
 @property(nonatomic, strong, nonnull) SPTAudioStreamingController *innerPlayer;
 
 @property(nonatomic, strong, nullable) NSError *error;
 @property(nonatomic, copy) dispatch_semaphore_t semaphore;
+
+@property(nonatomic, copy, nullable) SKErrorCallback startCallback;
 
 @end
 
@@ -27,6 +32,8 @@
     
     _auth = auth;
     _innerPlayer = [[SPTAudioStreamingController alloc] initWithClientId:auth.clientID];
+    
+    _innerPlayer.playbackDelegate = self;
     
     return self;
 }
@@ -62,7 +69,14 @@
 }
 
 - (void)_start:(SKErrorCallback)callback {
-    [_innerPlayer setIsPlaying:YES callback:callback];
+    _startCallback = callback;
+    
+    [_innerPlayer setIsPlaying:YES callback:^(NSError *error) {
+        if(error) {
+            _startCallback = nil;
+            callback(error);
+        }
+    }];
 }
 
 - (void)_pause:(SKErrorCallback)callback {
@@ -74,7 +88,7 @@
         if(error) {
             callback(error);
         } else {
-            [_innerPlayer logout:callback];
+            callback(nil);
         }
     }];
 }
@@ -95,6 +109,22 @@
 
 - (void)_getDuration:(SKTimeCallback)success failure:(SKErrorCallback)failure {
     success(_innerPlayer.currentTrackDuration);
+}
+
+#pragma mark - SPTAudioStreamingPlaybackDelegate
+
+-(void)audioStreaming:(SPTAudioStreamingController *)audioStreaming didChangePlaybackStatus:(BOOL)isPlaying {
+    
+    SKLog(@"%@", @(isPlaying));
+    
+    if(_startCallback) {
+        _startCallback(nil);
+        _startCallback = nil;
+    }
+}
+
+- (void)audioStreaming:(SPTAudioStreamingController *)audioStreaming didStartPlayingTrack:(NSURL *)trackUri {
+    SKLog(@"%@", trackUri);
 }
 
 @end
