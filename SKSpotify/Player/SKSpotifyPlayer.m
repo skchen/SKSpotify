@@ -10,9 +10,11 @@
 
 #import <Spotify/Spotify.h>
 
+/*
 #undef SKLog
 #define SKLog(__FORMAT__, ...) 
-
+*/
+ 
 @interface SKSpotifyPlayer () <SPTAudioStreamingDelegate, SPTAudioStreamingPlaybackDelegate>
 
 @property(nonatomic, strong, nonnull) SPTAuth *auth;
@@ -91,6 +93,30 @@
             callback(nil);
         }
     }];
+}
+
+- (void)seekTo:(NSTimeInterval)time success:(SKTimeCallback)success failure:(SKErrorCallback)failure {
+    switch(_state) {
+        case SKPlayerPrepared: {
+            SPTPlayOptions *option = [[SPTPlayOptions alloc] init];
+            option.trackIndex = 0;
+            option.startTime = time;
+            
+            [_innerPlayer playURIs:@[_source.uri] withOptions:option callback:^(NSError *error) {
+                if(error) {
+                    [self notifyError:error callback:failure];
+                } else {
+                    [self changeState:SKPlayerStarted callback:nil];
+                    success(time);
+                }
+            }];
+        }
+            break;
+                   
+        default:
+            [super seekTo:time success:success failure:failure];
+            break;
+    }
 }
 
 - (void)_seekTo:(NSTimeInterval)time success:(SKTimeCallback)success failure:(SKErrorCallback)failure {
