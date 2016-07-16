@@ -28,7 +28,7 @@ static NSString * const kSpotifySessionUserDefaultKey = @"SessionUserDefaultsKey
     [[SPTAuth defaultInstance] setRequestedScopes:@[SPTAuthStreamingScope]];
     [[SPTAuth defaultInstance] setSessionUserDefaultsKey:kSpotifySessionUserDefaultKey];
     
-    _player = [[SKSpotifyPlayer alloc] initWithAuth:[SPTAuth defaultInstance]];
+    _player = [[SKSpotifyListPlayer alloc] initWithAuth:[SPTAuth defaultInstance]];
     
     if(![[SPTAuth defaultInstance] session].isValid) {
         // Construct a login URL and open it

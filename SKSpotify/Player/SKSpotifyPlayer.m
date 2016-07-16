@@ -42,43 +42,24 @@
 
 #pragma mark - Abstract
 
-- (void)_setDataSource:(id)source {
-    // Do Nothing
-}
-
-- (void)_prepare:(SKErrorCallback)callback {
-    SKErrorCallback playCallback = ^(NSError *error) {
-        if(error) {
-            callback(error);
-        } else {
-            [self _pause:callback];
-        }
-    };
-    
+- (void)_start:(SKErrorCallback)callback {
     SKErrorCallback loginCallback = ^(NSError *error) {
         if(error) {
             callback(error);
         } else {
-            [_innerPlayer playURIs:@[_source.uri] fromIndex:0 callback:playCallback];
+            [self _start:callback];
         }
     };
     
     if([_innerPlayer loggedIn]) {
-        [_innerPlayer playURIs:@[_source.uri] fromIndex:0 callback:playCallback];
+        [_innerPlayer playURIs:@[[NSURL URLWithString:_source]] fromIndex:0 callback:callback];
     } else {
         [_innerPlayer loginWithSession:_auth.session callback:loginCallback];
     }
 }
 
-- (void)_start:(SKErrorCallback)callback {
-    _startCallback = callback;
-    
-    [_innerPlayer setIsPlaying:YES callback:^(NSError *error) {
-        if(error) {
-            _startCallback = nil;
-            callback(error);
-        }
-    }];
+- (void)_resume:(SKErrorCallback)callback {
+    [_innerPlayer setIsPlaying:YES callback:callback];
 }
 
 - (void)_pause:(SKErrorCallback)callback {
@@ -86,37 +67,7 @@
 }
 
 - (void)_stop:(SKErrorCallback)callback {
-    [_innerPlayer stop:^(NSError *error) {
-        if(error) {
-            callback(error);
-        } else {
-            callback(nil);
-        }
-    }];
-}
-
-- (void)seekTo:(NSTimeInterval)time success:(SKTimeCallback)success failure:(SKErrorCallback)failure {
-    switch(_state) {
-        case SKPlayerPrepared: {
-            SPTPlayOptions *option = [[SPTPlayOptions alloc] init];
-            option.trackIndex = 0;
-            option.startTime = time;
-            
-            [_innerPlayer playURIs:@[_source.uri] withOptions:option callback:^(NSError *error) {
-                if(error) {
-                    [self notifyError:error callback:failure];
-                } else {
-                    [self changeState:SKPlayerStarted callback:nil];
-                    success(time);
-                }
-            }];
-        }
-            break;
-                   
-        default:
-            [super seekTo:time success:success failure:failure];
-            break;
-    }
+    [_innerPlayer stop:callback];
 }
 
 - (void)_seekTo:(NSTimeInterval)time success:(SKTimeCallback)success failure:(SKErrorCallback)failure {
@@ -129,7 +80,7 @@
     }];
 }
 
-- (void)_getCurrentPosition:(SKTimeCallback)success failure:(SKErrorCallback)failure {
+- (void)_getProgress:(SKTimeCallback)success failure:(SKErrorCallback)failure {
     success(_innerPlayer.currentPlaybackPosition);
 }
 
@@ -140,13 +91,7 @@
 #pragma mark - SPTAudioStreamingPlaybackDelegate
 
 -(void)audioStreaming:(SPTAudioStreamingController *)audioStreaming didChangePlaybackStatus:(BOOL)isPlaying {
-    
     SKLog(@"%@", @(isPlaying));
-    
-    if(_startCallback) {
-        _startCallback(nil);
-        _startCallback = nil;
-    }
 }
 
 - (void)audioStreaming:(SPTAudioStreamingController *)audioStreaming didStartPlayingTrack:(NSURL *)trackUri {

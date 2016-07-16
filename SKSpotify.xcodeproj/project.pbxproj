@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8247D8C41D39E7D300D14D04 /* SKSpotifyListPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 8247D8C21D39E7D300D14D04 /* SKSpotifyListPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8247D8C51D39E7D300D14D04 /* SKSpotifyListPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8247D8C31D39E7D300D14D04 /* SKSpotifyListPlayer.m */; };
 		8262C03E1CC7433C00EB596C /* SKSpotify.h in Headers */ = {isa = PBXBuildFile; fileRef = 8262C03D1CC7433C00EB596C /* SKSpotify.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8262C0451CC7433C00EB596C /* SKSpotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262C03A1CC7433C00EB596C /* SKSpotify.framework */; };
 		8262C04A1CC7433C00EB596C /* SKSpotifyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8262C0491CC7433C00EB596C /* SKSpotifyTests.m */; };
@@ -15,7 +17,7 @@
 		82C0D1B91CC889800025C530 /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262C0A41CC74A1A00EB596C /* Spotify.framework */; };
 		82FF92C51CFD08D400CBE12E /* SKSpotifyBrowser.h in Headers */ = {isa = PBXBuildFile; fileRef = 82FF92C31CFD08D400CBE12E /* SKSpotifyBrowser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		82FF92C61CFD08D400CBE12E /* SKSpotifyBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 82FF92C41CFD08D400CBE12E /* SKSpotifyBrowser.m */; };
-		82FF92EB1CFD4CE500CBE12E /* SKSpotifyPagedList.h in Headers */ = {isa = PBXBuildFile; fileRef = 82FF92E91CFD4CE500CBE12E /* SKSpotifyPagedList.h */; };
+		82FF92EB1CFD4CE500CBE12E /* SKSpotifyPagedList.h in Headers */ = {isa = PBXBuildFile; fileRef = 82FF92E91CFD4CE500CBE12E /* SKSpotifyPagedList.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		82FF92EC1CFD4CE500CBE12E /* SKSpotifyPagedList.m in Sources */ = {isa = PBXBuildFile; fileRef = 82FF92EA1CFD4CE500CBE12E /* SKSpotifyPagedList.m */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +32,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8247D8C21D39E7D300D14D04 /* SKSpotifyListPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKSpotifyListPlayer.h; sourceTree = "<group>"; };
+		8247D8C31D39E7D300D14D04 /* SKSpotifyListPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKSpotifyListPlayer.m; sourceTree = "<group>"; };
 		8262C03A1CC7433C00EB596C /* SKSpotify.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SKSpotify.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8262C03D1CC7433C00EB596C /* SKSpotify.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKSpotify.h; sourceTree = "<group>"; };
 		8262C03F1CC7433C00EB596C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -119,6 +123,8 @@
 			children = (
 				8262C0A91CC74B6000EB596C /* SKSpotifyPlayer.h */,
 				8262C0AA1CC74B6000EB596C /* SKSpotifyPlayer.m */,
+				8247D8C21D39E7D300D14D04 /* SKSpotifyListPlayer.h */,
+				8247D8C31D39E7D300D14D04 /* SKSpotifyListPlayer.m */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -142,6 +148,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8262C0AB1CC74B6000EB596C /* SKSpotifyPlayer.h in Headers */,
+				8247D8C41D39E7D300D14D04 /* SKSpotifyListPlayer.h in Headers */,
 				82FF92C51CFD08D400CBE12E /* SKSpotifyBrowser.h in Headers */,
 				8262C03E1CC7433C00EB596C /* SKSpotify.h in Headers */,
 				82FF92EB1CFD4CE500CBE12E /* SKSpotifyPagedList.h in Headers */,
@@ -245,6 +252,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8262C0AC1CC74B6000EB596C /* SKSpotifyPlayer.m in Sources */,
+				8247D8C51D39E7D300D14D04 /* SKSpotifyListPlayer.m in Sources */,
 				82FF92C61CFD08D400CBE12E /* SKSpotifyBrowser.m in Sources */,
 				82FF92EC1CFD4CE500CBE12E /* SKSpotifyPagedList.m in Sources */,
 			);

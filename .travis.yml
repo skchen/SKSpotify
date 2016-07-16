@@ -1,9 +1,10 @@
 language: objective-c
-osx_image: xcode7.2
-xcode_project: SKSpotify.xcodeproj
-xcode_scheme: SKSpotify
+osx_image: xcode7.3
+xcode_workspace: SKSpotifyDemo/SKSpotifyDemo.xcworkspace
+xcode_scheme: SKSpotifyDemo
 xcode_sdk: iphonesimulator
 before_install:
 before_script:
-- carthage bootstrap --platform iOS
+- git submodule init
+- git submodule update
 

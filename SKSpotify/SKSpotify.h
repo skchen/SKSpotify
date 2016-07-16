@@ -18,4 +18,4 @@ FOUNDATION_EXPORT const unsigned char SKSpotifyVersionString[];
 
 #import <SKSpotify/SKSpotifyBrowser.h>
 #import <SKSpotify/SKSpotifyPlayer.h>
-
+#import <SKSpotify/SKSpotifyListPlayer.h>

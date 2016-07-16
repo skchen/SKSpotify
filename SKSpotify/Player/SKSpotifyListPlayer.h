@@ -1,17 +1,16 @@
 //
-//  SKSpotifyPlayer.h
+//  SKSpotifyListPlayer.h
 //  SKSpotify
 //
-//  Created by Shin-Kai Chen on 2016/4/20.
+//  Created by Shin-Kai Chen on 2016/7/16.
 //  Copyright © 2016年 SK. All rights reserved.
 //
 
 #import <SKUtils/SKUtils.h>
 
 @class SPTAuth;
-@class SPTPartialTrack;
 
-@interface SKSpotifyPlayer : SKSimplePlayer
+@interface SKSpotifyListPlayer : SKNestedListPlayer
 
 - (nonnull instancetype)initWithAuth:(nonnull SPTAuth *)auth;
 
