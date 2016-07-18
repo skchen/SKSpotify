@@ -14,6 +14,8 @@
 
 @interface SKSpotifyPlayerViewController ()
 
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+
 @end
 
 @implementation SKSpotifyPlayerViewController

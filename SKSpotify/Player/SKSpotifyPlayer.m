@@ -85,7 +85,18 @@
 }
 
 - (void)_getDuration:(SKTimeCallback)success failure:(SKErrorCallback)failure {
-    success(_innerPlayer.currentTrackDuration);
+    if(_state==SKPlayerPlaying) {
+        success(_innerPlayer.currentTrackDuration);
+    } else {
+        [SPTTrack trackWithURI:[NSURL URLWithString:_source] session:_auth.session callback:^(NSError *error, id object) {
+            if(error) {
+                failure(error);
+            } else {
+                SPTTrack *track = object;
+                success(track.duration);
+            }
+        }];
+    }
 }
 
 #pragma mark - SPTAudioStreamingPlaybackDelegate
