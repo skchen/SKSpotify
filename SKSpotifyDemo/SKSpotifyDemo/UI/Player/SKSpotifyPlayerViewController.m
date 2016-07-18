@@ -54,4 +54,20 @@
     }];
 }
 
+- (void)playerDidChangeSource:(SKPlayer *)player {
+    [super playerDidChangeSource:player];
+    
+    SKListPlayer *listPlayer = (SKListPlayer *)player;
+    NSString *uri = [listPlayer.source objectAtIndex:listPlayer.index];
+    
+    [SPTTrack trackWithURI:[NSURL URLWithString:uri] session:[SPTAuth defaultInstance].session callback:^(NSError *error, id object) {
+        if(error) {
+            NSLog(@"load track error: %@", error);
+        } else {
+            SPTTrack *track = object;
+            [_nameLabel setText:track.name];
+        }
+    }];
+}
+
 @end
