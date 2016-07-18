@@ -10,10 +10,8 @@
 
 #import <Spotify/Spotify.h>
 
-/*
 #undef SKLog
-#define SKLog(__FORMAT__, ...) 
-*/
+#define SKLog(__FORMAT__, ...)
  
 @interface SKSpotifyPlayer () <SPTAudioStreamingDelegate, SPTAudioStreamingPlaybackDelegate>
 
@@ -21,6 +19,8 @@
 @property(nonatomic, strong, nonnull) SPTAudioStreamingController *innerPlayer;
 
 @property(nonatomic, copy, nullable) NSURL *uri;
+
+@property(nonatomic, assign) BOOL stopOnRequest;
 
 @end
 
@@ -33,6 +33,8 @@
     _innerPlayer = [[SPTAudioStreamingController alloc] initWithClientId:auth.clientID];
     
     _innerPlayer.playbackDelegate = self;
+    
+    _stopOnRequest = NO;
     
     return self;
 }
@@ -80,6 +82,8 @@
 - (void)_stop:(SKErrorCallback)callback {
     __weak __typeof(_innerPlayer) weakInnerPlayer = _innerPlayer;
     
+    _stopOnRequest = YES;
+    
     [_innerPlayer setIsPlaying:NO callback:^(NSError *error) {
         if(error) {
             callback(error);
@@ -118,14 +122,44 @@
     }
 }
 
+- (void)playbackDidComplete:(nonnull id)playback {
+    if(_looping) {
+        [self stop:^(NSError * _Nullable error) {
+            if(error) {
+                NSLog(@"Unable to stop: %@", error);
+            }
+            
+            [self start:^(NSError * _Nullable error) {
+                if(error) {
+                    NSLog(@"Unable to start: %@", error);
+                } else {
+                    SKLog(@"restart success");
+                }
+            }];
+        }];
+    } else {
+        [super playbackDidComplete:playback];
+    }
+}
+
 #pragma mark - SPTAudioStreamingPlaybackDelegate
 
 -(void)audioStreaming:(SPTAudioStreamingController *)audioStreaming didChangePlaybackStatus:(BOOL)isPlaying {
-    SKLog(@"%@", @(isPlaying));
+    SKLog(@"didChangePlaybackStatus %@", @(isPlaying));
 }
 
 - (void)audioStreaming:(SPTAudioStreamingController *)audioStreaming didStartPlayingTrack:(NSURL *)trackUri {
-    SKLog(@"%@", trackUri);
+    SKLog(@"didStartPlayingTrack %@", trackUri);
+}
+
+- (void)audioStreaming:(SPTAudioStreamingController *)audioStreaming didStopPlayingTrack:(NSURL *)trackUri {
+    SKLog(@"didStopPlayingTrack %@", trackUri);
+    
+    if(!_stopOnRequest) {
+        [self playbackDidComplete:_source];
+    }
+    
+    _stopOnRequest = NO;
 }
 
 @end
