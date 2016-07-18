@@ -9,8 +9,12 @@
 #import <UIKit/UIKit.h>
 
 #import <SKUtils/SKUtils.h>
+@class SPTListPage;
 
 @interface SKSpotifyPlayerViewController : SKListPlayerViewController
+
+@property(nonatomic, strong, nonnull) SPTListPage *page;
+@property(nonatomic, assign) NSUInteger index;
 
 @property(nonatomic, copy, nullable) NSString *uri;
 

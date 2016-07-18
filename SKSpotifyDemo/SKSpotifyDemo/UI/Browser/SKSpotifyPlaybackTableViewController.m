@@ -69,10 +69,14 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-    SPTTrack *track = [_page.tracksForPlayback objectAtIndex:indexPath.row];
-    
     SKSpotifyPlayerViewController *destinationViewController = segue.destinationViewController;
+    /*
+    SPTTrack *track = [_page.tracksForPlayback objectAtIndex:indexPath.row];
     destinationViewController.uri = track.uri.absoluteString;
+     */
+    
+    destinationViewController.page = _page;
+    destinationViewController.index = indexPath.row;
 }
 
 #pragma mark - NSNotification

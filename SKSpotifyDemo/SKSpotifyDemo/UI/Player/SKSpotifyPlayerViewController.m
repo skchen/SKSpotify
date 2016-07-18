@@ -32,7 +32,8 @@
     
     __weak __typeof(self.player) weakPlayer = self.player;
     
-    [self.player setSource:_uri callback:^(NSError * _Nullable error) {
+    [self.listPlayer setSource:_page atIndex:_index callback:^(NSError * _Nullable error) {
+        
         if(error) {
             NSLog(@"Unable to set source: %@", error);
         } else {
@@ -58,16 +59,23 @@
     [super playerDidChangeSource:player];
     
     SKListPlayer *listPlayer = (SKListPlayer *)player;
-    NSString *uri = [listPlayer.source objectAtIndex:listPlayer.index];
+    id source = [listPlayer.source objectAtIndex:listPlayer.index];
     
-    [SPTTrack trackWithURI:[NSURL URLWithString:uri] session:[SPTAuth defaultInstance].session callback:^(NSError *error, id object) {
-        if(error) {
-            NSLog(@"load track error: %@", error);
-        } else {
-            SPTTrack *track = object;
-            [_nameLabel setText:track.name];
-        }
-    }];
+    if([source isKindOfClass:[NSString class]]) {
+        [SPTTrack trackWithURI:[NSURL URLWithString:source] session:[SPTAuth defaultInstance].session callback:^(NSError *error, id object) {
+            if(error) {
+                NSLog(@"load track error: %@", error);
+            } else {
+                SPTTrack *track = object;
+                [_nameLabel setText:track.name];
+            }
+        }];
+    } else if([source isKindOfClass:[SPTPartialTrack class]]) {
+        SPTPartialTrack *partialTrack = (SPTPartialTrack *)source;
+        [_nameLabel setText:partialTrack.name];
+    } else {
+        [_nameLabel setText:@"N/A"];
+    }
 }
 
 @end

@@ -20,10 +20,7 @@
 @property(nonatomic, strong, nonnull) SPTAuth *auth;
 @property(nonatomic, strong, nonnull) SPTAudioStreamingController *innerPlayer;
 
-@property(nonatomic, strong, nullable) NSError *error;
-@property(nonatomic, copy) dispatch_semaphore_t semaphore;
-
-@property(nonatomic, copy, nullable) SKErrorCallback startCallback;
+@property(nonatomic, copy, nullable) NSURL *uri;
 
 @end
 
@@ -42,6 +39,20 @@
 
 #pragma mark - Abstract
 
+- (void)_setSource:(id)source callback:(SKErrorCallback)callback {
+    if([source isKindOfClass:[NSString class]]) {
+        _uri = [NSURL URLWithString:source];
+    } else if([NSStringFromClass([source class]) isEqualToString:@"SPTPartialTrack"]) {
+        SPTPartialTrack *partialTrack = source;
+        _uri = partialTrack.uri;
+    } else {
+        callback([NSError errorWithDomain:@"Source not support" code:0 userInfo:nil]);
+        return;
+    }
+    
+    [super _setSource:source callback:callback];
+}
+
 - (void)_start:(SKErrorCallback)callback {
     SKErrorCallback loginCallback = ^(NSError *error) {
         if(error) {
@@ -52,7 +63,7 @@
     };
     
     if([_innerPlayer loggedIn]) {
-        [_innerPlayer playURIs:@[[NSURL URLWithString:_source]] fromIndex:0 callback:callback];
+        [_innerPlayer playURIs:@[_uri] fromIndex:0 callback:callback];
     } else {
         [_innerPlayer loginWithSession:_auth.session callback:loginCallback];
     }
@@ -96,7 +107,7 @@
     if(_state==SKPlayerPlaying) {
         success(_innerPlayer.currentTrackDuration);
     } else {
-        [SPTTrack trackWithURI:[NSURL URLWithString:_source] session:_auth.session callback:^(NSError *error, id object) {
+        [SPTTrack trackWithURI:_uri session:_auth.session callback:^(NSError *error, id object) {
             if(error) {
                 failure(error);
             } else {
