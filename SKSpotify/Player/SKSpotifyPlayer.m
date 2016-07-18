@@ -67,7 +67,15 @@
 }
 
 - (void)_stop:(SKErrorCallback)callback {
-    [_innerPlayer stop:callback];
+    __weak __typeof(_innerPlayer) weakInnerPlayer = _innerPlayer;
+    
+    [_innerPlayer setIsPlaying:NO callback:^(NSError *error) {
+        if(error) {
+            callback(error);
+        } else {
+            [weakInnerPlayer stop:callback];
+        }
+    }];
 }
 
 - (void)_seekTo:(NSTimeInterval)time success:(SKTimeCallback)success failure:(SKErrorCallback)failure {
