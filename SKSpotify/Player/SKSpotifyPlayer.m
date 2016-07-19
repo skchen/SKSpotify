@@ -20,6 +20,7 @@
 
 @property(nonatomic, copy, nullable) NSURL *uri;
 
+@property(nonatomic, assign) BOOL pauseOnRequest;
 @property(nonatomic, assign) BOOL stopOnRequest;
 
 @end
@@ -34,6 +35,7 @@
     
     _innerPlayer.playbackDelegate = self;
     
+    _pauseOnRequest = NO;
     _stopOnRequest = NO;
     
     return self;
@@ -76,6 +78,7 @@
 }
 
 - (void)_pause:(SKErrorCallback)callback {
+    _pauseOnRequest = YES;
     [_innerPlayer setIsPlaying:NO callback:callback];
 }
 
@@ -122,30 +125,19 @@
     }
 }
 
-- (void)playbackDidComplete:(nonnull id)playback {
-    if(_looping) {
-        [self stop:^(NSError * _Nullable error) {
-            if(error) {
-                NSLog(@"Unable to stop: %@", error);
-            }
-            
-            [self start:^(NSError * _Nullable error) {
-                if(error) {
-                    NSLog(@"Unable to start: %@", error);
-                } else {
-                    SKLog(@"restart success");
-                }
-            }];
-        }];
-    } else {
-        [super playbackDidComplete:playback];
-    }
-}
-
 #pragma mark - SPTAudioStreamingPlaybackDelegate
 
 -(void)audioStreaming:(SPTAudioStreamingController *)audioStreaming didChangePlaybackStatus:(BOOL)isPlaying {
     SKLog(@"didChangePlaybackStatus %@", @(isPlaying));
+    
+    if(isPlaying) {
+        [self changeState:SKPlayerPlaying callback:nil];
+    } else {
+        if(_pauseOnRequest) {
+            [self changeState:SKPlayerPaused callback:nil];
+            _pauseOnRequest = NO;
+        }
+    }
 }
 
 - (void)audioStreaming:(SPTAudioStreamingController *)audioStreaming didStartPlayingTrack:(NSURL *)trackUri {
@@ -154,6 +146,8 @@
 
 - (void)audioStreaming:(SPTAudioStreamingController *)audioStreaming didStopPlayingTrack:(NSURL *)trackUri {
     SKLog(@"didStopPlayingTrack %@", trackUri);
+    
+    [self changeState:SKPlayerStopped callback:nil];
     
     if(!_stopOnRequest) {
         [self playbackDidComplete:_source];
